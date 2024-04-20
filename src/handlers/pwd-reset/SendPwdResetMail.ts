@@ -1,5 +1,4 @@
 import { EmailMessage } from "@azure/communication-email";
-import { HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
 import { z } from "zod";
 import pwdResetEmailTemplates from "../../../Templates/pwdResetEmailTemplates";
 import sendMail from "../../services/SendMail";

@@ -1,11 +1,9 @@
-import { HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
-import MessageClient, { MessageTemplate, MessageTemplateBindings, MessageTemplateQuickAction, MessageTemplateValue } from "@azure-rest/communication-messages";
-import { EmailClient, EmailMessage, KnownEmailSendStatus } from "@azure/communication-email";
+
+import { EmailMessage } from "@azure/communication-email";
 import { z } from "zod";
 import otpEmailTemplates from "../../../Templates/otpEmailTemplates";
 import sendMail from "../../services/SendMail";
 
-import sendMessage from "../../services/SendMessage";
 import { EmailOTPvalidationSc } from "../../../utils/ValidataionSc";
 
 

@@ -1,6 +1,5 @@
 import { sendEmailOTPT } from "../src/handlers/OTP/sendEmailOTP"
 import { sendMessageOTPT } from "../src/handlers/OTP/sendmessageOTP"
-import { SendPwdResetMailRequest } from "../src/handlers/pwd-reset/SendPwdResetMail"
 
 
 

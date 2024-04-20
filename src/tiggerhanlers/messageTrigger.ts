@@ -1,7 +1,6 @@
 import { InvocationContext } from "@azure/functions";
 import { decrypt } from "../../utils/Decrypt";
-import { sendmessageOTP, sendMessageOTPT } from "../handlers/OTP/sendmessageOTP";
-import { SendPwdResetMail, SendPwdResetMailRequest } from "../handlers/pwd-reset/SendPwdResetMail";
+import { sendmessageOTP, sendMessageOTPT } from "../handlers/OTP/sendmessageOTP";;
 import { SendMessageAppointment, SendMessageAppointmentT } from "../handlers/Appointment/SendMessageAppointment";
 
 export async function messageTrigger(queueItem: string, context: InvocationContext): Promise<void> {
