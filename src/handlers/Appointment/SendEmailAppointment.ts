@@ -1,37 +1,24 @@
-import { HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
+
 import { z } from "zod";
-import { phoneValidationSc } from "../../utils/validSc";
 import { EmailMessage } from "@azure/communication-email";
-import generateAppointmentEmail from "../../Templates/appointmentTemplates";
+import generateAppointmentEmail from "../../../Templates/appointmentTemplates";
 import sendMail from "../../services/SendMail";
-import sendMessage from "../../services/SendMessage";
-import { MessageTemplate, MessageTemplateBindings, MessageTemplateQuickAction, MessageTemplateValue } from "@azure-rest/communication-messages";
+import { emailAppointmentValidationSc } from "../../../utils/ValidataionSc";
 
 
 
-const validationSc = z.object({
-    email: z.string().email(),
-    phoneNumber: phoneValidationSc.optional(),
-    type: z.enum(["booking", "checking", "cancelled", "completed", "rescheduled"]),
-    patientName: z.string(),
-    doctorName: z.string(),
-    date: z.string(),
-    time: z.string(),
-    referenceId: z.string().optional(),
-});
+export type SendEmailAppointmentRequestT = z.infer<typeof emailAppointmentValidationSc>;
 
 
-type AppointmentRequest = z.infer<typeof validationSc>;
-
-
-
-export async function appointmetHanlder(data: AppointmentRequest): Promise<HttpResponseInit> {
+export async function SendEmailAppointment(data: SendEmailAppointmentRequestT): Promise<void> {
 
     try {
 
-        if (!validationSc.safeParse(data).success) {
-            return { jsonBody: { message: "Invalid Data" }, status: 400 };
+
+        if (!emailAppointmentValidationSc.safeParse(data).success) {
+            throw new Error("Invalid Data");
         }
+
 
         const message: EmailMessage = {
             senderAddress: "DoNotReply@kiyas-cloud.live",
@@ -63,6 +50,7 @@ export async function appointmetHanlder(data: AppointmentRequest): Promise<HttpR
 
     } catch (error) {
         console.log(error);
+
     }
 
 

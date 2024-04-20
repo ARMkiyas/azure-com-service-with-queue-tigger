@@ -34,6 +34,8 @@ const sendMessage = async ({ recipientList, kind, template, Content }: sendMessa
 
 
 
+        console.log("Message sent successfully");
+
         return templateMessageResult;
 
     } catch (error) {
