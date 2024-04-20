@@ -1,30 +1,26 @@
 import { EmailMessage } from "@azure/communication-email";
 import { HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
 import { z } from "zod";
-import pwdResetEmailTemplates from "../Templates/pwdResetEmailTemplates";
-import sendMail from "../services/SendMail";
+import pwdResetEmailTemplates from "../../../Templates/pwdResetEmailTemplates";
+import sendMail from "../../services/SendMail";
+import { PWDRestValidationSc } from "../../../utils/ValidataionSc";
 
 
-const validationSc = z.object({
-    email: z.string().email(),
-    url: z.string().url(),
-    username: z.string(),
-
-});
 
 
-type SendPwdResetMailRequest = z.infer<typeof validationSc>;
 
-export async function SendPwdResetMail(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
+export type SendPwdResetMailRequest = z.infer<typeof PWDRestValidationSc>;
+
+export async function SendPwdResetMail(requestPayload: SendPwdResetMailRequest): Promise<void> {
 
 
 
     try {
 
-        const requestPayload = await request.json() as SendPwdResetMailRequest;
 
-        if (!validationSc.safeParse(requestPayload).success) {
-            return { jsonBody: { message: "Invalid Data", data: requestPayload }, status: 400 };
+        if (!PWDRestValidationSc.safeParse(requestPayload).success) {
+            console.log("invalid Data");
+            throw new Error("invalid Data")
         }
 
         const message: EmailMessage = {
@@ -46,14 +42,14 @@ export async function SendPwdResetMail(request: HttpRequest, context: Invocation
 
         await sendMail(message);
 
-        return { jsonBody: { message: "Your Reset Mail Has Been Send" }, status: 200 };
+
 
 
 
 
     } catch (error) {
         console.log(error);
-        return { jsonBody: { message: "Your Reset Mail Has not sent" }, status: 400 };
+
     }
 
 

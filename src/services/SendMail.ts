@@ -32,6 +32,9 @@ const sendMail = async (message: EmailMessage) => {
             throw poller.getResult().error;
         }
 
+
+        console.log("Email sent successfully");
+
     } catch (error) {
         throw new Error(`Error sending email: ${error}`);
     }

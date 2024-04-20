@@ -1,11 +1,12 @@
 import { HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
 import { z } from "zod";
-import { phoneValidationSc } from "../utils/validSc";
+
 import { EmailMessage } from "@azure/communication-email";
-import generateAppointmentEmail from "../Templates/appointmentTemplates";
+import generateAppointmentEmail from "../../Templates/appointmentTemplates";
 import sendMail from "../services/SendMail";
 import sendMessage from "../services/SendMessage";
 import { MessageTemplate, MessageTemplateBindings, MessageTemplateQuickAction, MessageTemplateValue } from "@azure-rest/communication-messages";
+import { phoneValidationSc } from "../../utils/ValidataionSc";
 
 
 
