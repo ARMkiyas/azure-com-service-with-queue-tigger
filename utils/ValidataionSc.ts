@@ -30,15 +30,24 @@ export const MessageOTPValidationSC = z.object({
 
 
 
-export const PWDRestValidationSc = z.object({
-    email: z.string().email(),
+const basicRestValidationSc = z.object({
     url: z.string().url(),
     username: z.string(),
-
 });
 
+export const PWDRestValidationSc = z.object({
+    email: z.string().email(),
 
 
+}).merge(basicRestValidationSc);
+
+
+
+export const PWDMessageRestValidationSc = z.object({
+    phoneNumber: phoneValidationSc,
+
+
+}).merge(basicRestValidationSc);
 
 const BasicAppointmentValidationSc = z.object({
     type: z.enum(["booking", "checking", "cancelled", "completed", "rescheduled"]),
