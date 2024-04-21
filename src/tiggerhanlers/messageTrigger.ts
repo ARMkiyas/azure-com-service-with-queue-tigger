@@ -2,6 +2,7 @@ import { InvocationContext } from "@azure/functions";
 import { decrypt } from "../../utils/Decrypt";
 import { sendmessageOTP, sendMessageOTPT } from "../handlers/OTP/sendmessageOTP";;
 import { SendMessageAppointment, SendMessageAppointmentT } from "../handlers/Appointment/SendMessageAppointment";
+import { sendMessagePWDResetT, sendPWDResetMessage } from "../handlers/pwd-reset/sendPWDResetMessage";
 
 export async function messageTrigger(queueItem: string, context: InvocationContext): Promise<void> {
 
@@ -16,7 +17,7 @@ export async function messageTrigger(queueItem: string, context: InvocationConte
     }
 
     if (data.type === "pwd-reset") {
-        console.log("not defined");
+        return sendPWDResetMessage(data.data as sendMessagePWDResetT);
 
     }
     if (data.type === "appointment") {
