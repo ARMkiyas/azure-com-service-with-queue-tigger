@@ -9,8 +9,6 @@ export const phoneValidationSc = z.string()
     .min(1, "phone is Required")
 
 
-
-
 export const basicOTPSc = z.object({
     username: z.string().optional(),
     otp: z.string()
